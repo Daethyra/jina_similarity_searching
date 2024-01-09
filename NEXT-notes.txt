@@ -1,0 +1,150 @@
+- loaders.py shouldnt use any code from any other module and should be standalone
+- jina module looks good
+- we will use langchain code for Pinecone, see the pasted documentation below. we will set our pinecone index as our vectorstore using `vectorstore = Pinecone(index, embeddings.embed_query, "text")`, we will set the vectorstore as our retriever using `as_retriever(**kwargs)`, from which we will perform similarity searching using `asimilarity_search(query[,k])` | here's what i found in the LangChain Python API documentation for `langchain_community.vectorstores.pinecone.Pinecone`:
+"""
+langchain_community.vectorstores.pinecone.Pinecone
+class langchain_community.vectorstores.pinecone.Pinecone(index: Any, embedding: Union[Embeddings, Callable], text_key: str, namespace: Optional[str] = None, distance_strategy: Optional[DistanceStrategy] = DistanceStrategy.COSINE)[source]
+Pinecone vector store.
+
+To use, you should have the pinecone-client python package installed.
+
+Example
+
+from langchain_community.vectorstores import Pinecone
+from langchain_community.embeddings.openai import OpenAIEmbeddings
+import pinecone
+
+# The environment should be the one specified next to the API key
+# in your Pinecone console
+pinecone.init(api_key="***", environment="...")
+index = pinecone.Index("langchain-demo")
+embeddings = OpenAIEmbeddings()
+vectorstore = Pinecone(index, embeddings.embed_query, "text")
+Initialize with Pinecone client.
+
+Attributes
+
+embeddings
+
+Access the query embedding object if available.
+
+Methods
+
+__init__(index, embedding, text_key[, ...])
+
+Initialize with Pinecone client.
+
+aadd_documents(documents, **kwargs)
+
+Run more documents through the embeddings and add to the vectorstore.
+
+aadd_texts(texts[, metadatas])
+
+Run more texts through the embeddings and add to the vectorstore.
+
+add_documents(documents, **kwargs)
+
+Run more documents through the embeddings and add to the vectorstore.
+
+add_texts(texts[, metadatas, ids, ...])
+
+Run more texts through the embeddings and add to the vectorstore.
+
+adelete([ids])
+
+Delete by vector ID or other criteria.
+
+afrom_documents(documents, embedding, **kwargs)
+
+Return VectorStore initialized from documents and embeddings.
+
+afrom_texts(texts, embedding[, metadatas])
+
+Return VectorStore initialized from texts and embeddings.
+
+amax_marginal_relevance_search(query[, k, ...])
+
+Return docs selected using the maximal marginal relevance.
+
+amax_marginal_relevance_search_by_vector(...)
+
+Return docs selected using the maximal marginal relevance.
+
+as_retriever(**kwargs)
+
+Return VectorStoreRetriever initialized from this VectorStore.
+
+asearch(query, search_type, **kwargs)
+
+Return docs most similar to query using specified search type.
+
+asimilarity_search(query[, k])
+
+Return docs most similar to query.
+
+asimilarity_search_by_vector(embedding[, k])
+
+Return docs most similar to embedding vector.
+
+asimilarity_search_with_relevance_scores(query)
+
+Return docs and relevance scores in the range [0, 1], asynchronously.
+
+asimilarity_search_with_score(*args, **kwargs)
+
+Run similarity search with distance asynchronously.
+
+delete([ids, delete_all, namespace, filter])
+
+Delete by vector IDs or filter.
+
+from_documents(documents, embedding, **kwargs)
+
+Return VectorStore initialized from documents and embeddings.
+
+from_existing_index(index_name, embedding[, ...])
+
+Load pinecone vectorstore from index name.
+
+from_texts(texts, embedding[, metadatas, ...])
+
+Construct Pinecone wrapper from raw documents.
+
+get_pinecone_index(index_name[, pool_threads])
+
+Return a Pinecone Index instance.
+
+max_marginal_relevance_search(query[, k, ...])
+
+Return docs selected using the maximal marginal relevance.
+
+max_marginal_relevance_search_by_vector(...)
+
+Return docs selected using the maximal marginal relevance.
+
+search(query, search_type, **kwargs)
+
+Return docs most similar to query using specified search type.
+
+similarity_search(query[, k, filter, namespace])
+
+Return pinecone documents most similar to query.
+
+similarity_search_by_vector(embedding[, k])
+
+Return docs most similar to embedding vector.
+
+similarity_search_by_vector_with_score(...)
+
+Return pinecone documents most similar to embedding, along with scores.
+
+similarity_search_with_relevance_scores(query)
+
+Return docs and relevance scores in the range [0, 1].
+
+similarity_search_with_score(query[, k, ...])
+
+Return pinecone documents most similar to query, along with scores.
+"""
+
+NOTE: do not use OPENAI for any reason ever.
