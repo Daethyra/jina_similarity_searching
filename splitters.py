@@ -3,6 +3,7 @@
 # Import libraries
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
+
 class Splitter:
     def __init__(self, documents):
         """
@@ -24,11 +25,12 @@ class Splitter:
         """
         # Create documents from the input text
         text_documents = self.text_splitter.create_documents(self.documents)
-        
+
         # Extract the split text from the documents
         split_text = [doc.page_content for doc in text_documents]
-        
+
         return split_text
-    
+
+
 # Instantiation example when importing to other modules:
 # splitter = Splitter(file_type_cache)
